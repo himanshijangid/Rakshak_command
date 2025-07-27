@@ -14,20 +14,7 @@
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
   <title>Rakshak command</title>
-<style>
 
-
-
-h2 { text-align: center; margin-bottom: 20px; color: #b30000; }
-label { display: block; margin-top: 12px; font-weight: bold; }
-input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
-button { background: #b30000; color: #fff; padding: 10px; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer; width: 100%; font-weight: bold; }
-button:hover { background: #800000; }
-#profit { color: green; font-weight: bold; }
-.guard-card { background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px; }
-.guard-card img { max-width: 50px; margin-right: 5px; vertical-align: middle; }
-.preview-img { max-height: 60px; margin-top: 5px; }
-</style>
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
@@ -66,10 +53,10 @@ button:hover { background: #800000; }
               </span>
              
             </a>
-            <a href="mailto:rakshakcommad@gmail.com?subject=Rakshak%20Command%20Inquiry&body=Namaste%20Rakshak%20Command%20Team,%0D%0A%0D%0AMujhe%20apne%20premises%20ke%20liye%20security%20services%20ke%20baare%20me%20jankari%20chahiye.%0D%0AKripya%20sampark%20karein.%0D%0A%0D%0ADhanyavaad." class="contact_link3">
+            <a href="mailto:rakshakcommand@gmail.com?subject=Rakshak%20Command%20Inquiry&body=Namaste%20Rakshak%20Command%20Team,%0D%0A%0D%0AMujhe%20apne%20premises%20ke%20liye%20security%20services%20ke%20baare%20me%20jankari%20chahiye.%0D%0AKripya%20sampark%20karein.%0D%0A%0D%0ADhanyavaad." class="contact_link3">
               <i class="fa fa-envelope" aria-hidden="true"></i>
               <span>
-               rakshakcommad@gmail.com
+               rakshakcommand@gmail.com
               </span>
             </a>
           </div>
@@ -111,56 +98,111 @@ button:hover { background: #800000; }
     <!-- end header section -->
   </div>
 
-  <!-- Guard management system -->
-<section>
- <div class="container">
-  <h2>Guard Management System</h2>
+  <!-- team section -->
+  <section class="team_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Our Guards
+        </h2>
+        <p>
+          At Rakshak Command, our guards are the backbone of our promise to protect you. Each guard is carefully selected, background-verified, and trained to handle every security challenge with discipline and alertness.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/t1.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+               Residential Security Team
+              </h5>
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/t2.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+               Event Security Team
 
-  <form id="guardForm">
-    <label>Client Name:</label>
-    <select id="clientName">
-      <option value="">Select Client</option>
-      <option value="ABC Corp">ABC Corp</option>
-      <option value="XYZ Enterprises">XYZ Enterprises</option>
-    </select>
+              </h5>
+             
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/t3.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+             Commercial Security Team
 
-    <label>Client Payment per Guard (₹):</label>
-    <input type="number" id="clientPayment" placeholder="e.g. 15000">
+              </h5>
+             
+            </div>
+          </div>
+        </div>
+         <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/t4.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+               Residential Security Team
+              </h5>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/t5.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+               Event Security Team
 
-    <label>Guard Name:</label>
-    <input type="text" id="guardName" placeholder="Guard Name">
+              </h5>
+       
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mx-auto ">
+          <div class="box">
+            <div class="img-box">
+              <img src="images/t6.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+             Commercial Security Team
 
-    <label>Mobile Number:</label>
-    <input type="tel" id="mobile" placeholder="Mobile">
-
-    <label>Alternate Number:</label>
-    <input type="tel" id="altMobile" placeholder="Alternate Mobile">
-
-    <label>Aadhaar Photo:</label>
-    <input type="file" id="aadhaarPhoto" accept="image/*">
-    <img id="aadhaarPreview" class="preview-img">
-
-    <label>Personal Photo:</label>
-    <input type="file" id="personalPhoto" accept="image/*">
-    <img id="personalPreview" class="preview-img">
-
-    <label>Duty Location:</label>
-    <input type="text" id="dutyLocation" placeholder="Duty Location">
-
-    <label>Guard Payment (₹):</label>
-    <input type="number" id="guardPayment" placeholder="e.g. 13000">
-
-    <div>
-      <strong>Profit: </strong><span id="profit">₹0</span>
+              </h5>
+              <!-- <h6 class="">
+                Trained to manage large sites and industrial units with discipline.
+              </h6> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="btn-box">
+        <a href="guard.html">
+          View All
+        </a> -->
+      </div>
     </div>
-
-    <button type="submit">Save Guard Details</button>
-  </form>
-
-  <div id="guardList"></div>
-</div>
-</section>
-  <!-- Guard management system  -->
+  </section>
+  <!-- end team section -->
 
  <!-- info section -->
  <section class="info_section">
@@ -203,7 +245,7 @@ button:hover { background: #800000; }
           </div>
           <div>
             <i class="fa fa-envelope"></i>
-            <a href="mailto:rakshakcommad@gmail.com">rakshakcommad@gmail.com</a>
+            <a href="mailto:rakshakcommand@gmail.com">rakshakcommand@gmail.com</a>
           </div>
         </div>
       </div>
@@ -215,7 +257,9 @@ button:hover { background: #800000; }
             <a href="https://www.facebook.com/profile.php?id=61576295347312" target="_blank"><i class="fa fa-facebook"></i></a>
             <a href="https://wa.me/918003001702?text=Hello%20Rakshak%20Command%20Security%20Team!" target="_blank"><i class="fa fa-whatsapp"></i></a>
             <a href="https://www.instagram.com/rakshakcommand/" target="_blank"><i class="fa fa-instagram"></i></a>
-            <a href="https://www.threads.com/@rakshakcommand?xmt=AQF0kpOCTvo7c_NeVPqSQUKKlzfcy91Rh-PvXmSHuSVKG5o" target="_blank"><i class="fa fa-threads"></i></a>
+             <a href="https://www.threads.com/@rakshakcommand?xmt=AQF0kpOCTvo7c_NeVPqSQUKKlzfcy91Rh-PvXmSHuSVKG5o" target="_blank"><div class="img-box">
+              <img src="images/Threads_icon.png" alt="threads" />
+            </div></a>
           </div>
         </div>
       </div>
@@ -238,85 +282,10 @@ button:hover { background: #800000; }
 </p>
 </footer>
 <!-- footer section -->
-<script>
-const clientPaymentInput = document.getElementById('clientPayment');
-const guardPaymentInput = document.getElementById('guardPayment');
-const profitDisplay = document.getElementById('profit');
 
-function updateProfit() {
-  const clientPayment = Number(clientPaymentInput.value);
-  const guardPayment = Number(guardPaymentInput.value);
-  const profit = clientPayment - guardPayment;
-  profitDisplay.textContent = '₹' + (isNaN(profit) ? 0 : profit);
-}
-
-clientPaymentInput.addEventListener('input', updateProfit);
-guardPaymentInput.addEventListener('input', updateProfit);
-
-document.getElementById('aadhaarPhoto').addEventListener('change', function() {
-  const file = this.files[0];
-  if (file) document.getElementById('aadhaarPreview').src = URL.createObjectURL(file);
-});
-
-document.getElementById('personalPhoto').addEventListener('change', function() {
-  const file = this.files[0];
-  if (file) document.getElementById('personalPreview').src = URL.createObjectURL(file);
-});
-
-document.getElementById('guardForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const guardData = {
-    clientName: document.getElementById('clientName').value,
-    clientPayment: document.getElementById('clientPayment').value,
-    guardName: document.getElementById('guardName').value,
-    mobile: document.getElementById('mobile').value,
-    altMobile: document.getElementById('altMobile').value,
-    dutyLocation: document.getElementById('dutyLocation').value,
-    guardPayment: document.getElementById('guardPayment').value,
-    profit: profitDisplay.textContent
-  };
-  const guardList = JSON.parse(localStorage.getItem('guardList')) || [];
-  guardList.push(guardData);
-  localStorage.setItem('guardList', JSON.stringify(guardList));
-  alert('Guard details saved!');
-  displayGuards();
-  this.reset();
-  profitDisplay.textContent = '₹0';
-  document.getElementById('aadhaarPreview').src = '';
-  document.getElementById('personalPreview').src = '';
-});
-
-function displayGuards() {
-  const guardListContainer = document.getElementById('guardList');
-  guardListContainer.innerHTML = '';
-  const guardList = JSON.parse(localStorage.getItem('guardList')) || [];
-  guardList.forEach((guard, index) => {
-    const div = document.createElement('div');
-    div.className = 'guard-card';
-    div.innerHTML = `
-      <strong>${guard.guardName}</strong> (${guard.clientName})<br>
-      Mobile: ${guard.mobile} | Alt: ${guard.altMobile}<br>
-      Location: ${guard.dutyLocation}<br>
-      Client Payment: ₹${guard.clientPayment} | Guard Payment: ₹${guard.guardPayment} | Profit: ${guard.profit}
-      <br><button onclick="deleteGuard(${index})">Delete</button>
-    `;
-    guardListContainer.appendChild(div);
-  });
-}
-
-function deleteGuard(index) {
-  const guardList = JSON.parse(localStorage.getItem('guardList')) || [];
-  guardList.splice(index, 1);
-  localStorage.setItem('guardList', JSON.stringify(guardList));
-  displayGuards();
-}
-
-displayGuards();
-</script>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/custom.js"></script>
-  
 </body>
 
 </html>
