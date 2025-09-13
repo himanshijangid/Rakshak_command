@@ -54,6 +54,7 @@ const Slider = ({ title, images }) => {
               exit={{ x: -300, opacity: 0 }}
               transition={{ duration: 0.5 }}
               style={{ maxWidth: "100%" }}
+              
             />
           </AnimatePresence>
           {/* Navigation */}
