@@ -30,7 +30,7 @@ const Footer = () => {
                 Rakshak Command
               </Link>
               <p className="text-gray-300 text-sm">
-                “Trusted 24/7 security for your home, business, and events.”
+                “Led by Ex-Servicemen and trusted across Jaipur, we deliver disciplined, 24/7 protection for your home, business, and peace of mind.”
               </p>
             </div>
 
@@ -86,8 +86,15 @@ const Footer = () => {
                   href="tel:+918003001702"
                   className="flex items-center hover:text-yellow-400"
                 >
-                  <FaPhoneAlt className="w-5 h-5 mr-2 text-yellow-400" /> +91
+                  <FaPhoneAlt className="w-4 h-4 mr-2 text-yellow-400" /> +91
                   8003001702
+                </a>
+                <a
+                  href="tel:+919351696417"
+                  className="flex items-center hover:text-yellow-400"
+                >
+                  <FaPhoneAlt className="w-4 h-4 mr-2 text-yellow-400" /> +91
+                 9351696417
                 </a>
                 <a
                   href="mailto:rakshakcommand@gmail.com"
