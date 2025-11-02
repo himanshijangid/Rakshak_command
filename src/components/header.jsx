@@ -10,6 +10,7 @@ import {
   Briefcase,
   Users,
   MessageCircle,
+  Image,
 } from "lucide-react";
 
 import logo from "../assets/logo.png";
@@ -24,6 +25,7 @@ const App = () => {
     { label: "Services", path: "/services", icon: Briefcase },
     { label: "Guards", path: "/guards", icon: Users },
     { label: "Contact Us", path: "/contact", icon: MessageCircle },
+    { label: "Gallery", path: "/gallery", icon: Image },
   ];
 
   const toggleSidebar = () => {
