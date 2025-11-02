@@ -76,7 +76,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="flex items-start hover:text-yellow-400"
                 >
-                  <LuMapPin className="w-8 h-8 mr-2 text-yellow-400" />
+                  <LuMapPin className="w-9 h-9 mr-2 text-yellow-400" />
                   <span className="text-sm">
                     P.N.- 1 , 2 Narayan Dham 3rd , Rani Colony, Niwaru Road,
                     Jhotwara, Jaipur
@@ -101,7 +101,7 @@ const Footer = () => {
                   className="flex items-center hover:text-yellow-400"
                 >
                   <MdMail className="w-5 h-5 mr-2 text-yellow-400" />{" "}
-                  rakshakcommand@gmail.com
+                  Rakshakcommand@gmail.com
                 </a>
               </div>
             </div>

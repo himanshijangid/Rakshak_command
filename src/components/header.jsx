@@ -78,7 +78,7 @@ const App = () => {
                 className="flex items-center space-x-2 hover:scale-105 transition-transform"
               >
                 <Mail className="h-4 w-4" />
-                <span>rakshakcommand@gmail.com</span>
+                <span>Rakshakcommand@gmail.com</span>
               </a>
             </div>
           </div>
