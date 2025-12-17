@@ -571,15 +571,15 @@ import hero2 from "../assets/hero-bg.jpg";
 import hero3 from "../assets/hero-bg.jpg";
 
 export default function Hero() {
-  /* ================= SLIDER ================= */
+  /* ================= HERO SLIDER ================= */
   const heroImages = [hero1, hero2, hero3];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const t = setInterval(() => {
       setCurrentSlide((i) => (i + 1) % heroImages.length);
     }, 4000);
-    return () => clearInterval(interval);
+    return () => clearInterval(t);
   }, []);
 
   const nextSlide = () =>
@@ -661,25 +661,17 @@ export default function Hero() {
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
           className="flex h-full transition-transform duration-1000 ease-in-out"
-          style={{
-            transform: `translateX(-${currentSlide * 100}%)`,
-          }}
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {heroImages.map((img, i) => (
             <div key={i} className="w-full h-full flex-shrink-0">
-              <img
-                src={img}
-                alt=""
-                className="w-full h-full object-cover"
-              />
+              <img src={img} alt="" className="w-full h-full object-cover" />
             </div>
           ))}
         </div>
 
-        {/* overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
 
-        {/* arrows */}
         <button
           onClick={prevSlide}
           className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
@@ -701,9 +693,7 @@ export default function Hero() {
             <div>
               <h1 className="text-4xl md:text-5xl font-extrabold uppercase leading-tight">
                 Your Safety <br />
-                <span className="text-yellow-400">
-                  Our Responsibility
-                </span>
+                <span className="text-yellow-400">Our Responsibility</span>
               </h1>
 
               <p className="mt-6 max-w-xl text-gray-200">
@@ -733,16 +723,13 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* ================= YELLOW TICKER ================= */}
-      <TickerRow />
+      {/* ================= YELLOW LIVE TICKER (RIGHT ➜ LEFT) ================= */}
+      <LiveTicker />
 
       {/* ================= MODAL ================= */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div
-            onClick={closeModal}
-            className="absolute inset-0 bg-black/60"
-          />
+          <div onClick={closeModal} className="absolute inset-0 bg-black/60" />
           <div className="bg-white p-6 rounded-md z-10 w-full max-w-md">
             <form onSubmit={handleSubmit} className="space-y-3">
               <input name="name" onChange={handleChange} placeholder="Name" className="w-full border p-2" />
@@ -768,12 +755,78 @@ export default function Hero() {
   );
 }
 
-/* ================= TICKER ================= */
-function TickerRow() {
+/* ================= LIVE TICKER ================= */
+function LiveTicker() {
+  const alerts = [
+    { text: "HIRING", color: "bg-red-600" },
+    { text: "NOTICE", color: "bg-blue-600" },
+    { text: "UPDATE", color: "bg-green-600" },
+    { text: "VIP", color: "bg-purple-600" },
+    { text: "SECURITY", color: "bg-black" },
+  ];
+
+  const [alertIndex, setAlertIndex] = useState(0);
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setAlertIndex((i) => (i + 1) % alerts.length);
+    }, 2500);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      const now = new Date();
+      setTime(
+        now.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })
+      );
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const current = alerts[alertIndex];
+
   return (
-    <div className="bg-yellow-400 py-2 text-black font-bold text-center">
-      🛡️ PROFESSIONAL SECURITY SERVICES 24×7 | 📞 +91-8003001702
+    <div className="relative bg-yellow-400 overflow-hidden py-2">
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-yellow-400 to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-yellow-400 to-transparent z-10" />
+
+      <div
+        className="flex w-max"
+        style={{ animation: "slideRTL 45s linear infinite" }}
+      >
+        <TickerRow current={current} time={time} />
+        <TickerRow current={current} time={time} />
+      </div>
+
+      <style>{`
+        @keyframes slideRTL {
+          0%   { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+      `}</style>
     </div>
   );
 }
 
+function TickerRow({ current, time }) {
+  return (
+    <div className="flex items-center">
+      <span className={`mx-4 px-3 py-1 text-xs font-extrabold uppercase text-white rounded-full ${current.color}`}>
+        {current.text}
+      </span>
+      <p className="mx-6 whitespace-nowrap font-semibold">🕒 {time}</p>
+      <p className="mx-6 whitespace-nowrap font-bold">WE ARE HIRING SECURITY GUARDS</p>
+      <p className="mx-6 whitespace-nowrap font-bold">📞 CONTACT: +91-8003001702</p>
+      <p className="mx-6 whitespace-nowrap font-bold">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+    </div>
+  );
+}
