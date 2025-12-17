@@ -562,31 +562,38 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
-import hero1 from "../assets/hero-bg.jpg";
-import hero2 from "../assets/hero-bg.jpg";
-import hero3 from "../assets/hero-bg.jpg";
+/* ===== DESKTOP HERO IMAGES ===== */
+import hero1 from "../assets/hero-1.jpg";
+import hero2 from "../assets/hero-1.jpg";
+import hero3 from "../assets/hero-1.jpg";
+
+/* ===== MOBILE HERO IMAGES ===== */
+import heroM1 from "../assets/hero-mob-1.jpg";
+import heroM2 from "../assets/hero-mob-1.jpg";
+import heroM3 from "../assets/hero-mob-1.jpg";
 
 export default function Hero() {
   /* ================= HERO SLIDER ================= */
-  const heroImages = [hero1, hero2, hero3];
+  const desktopImages = [hero1, hero2, hero3];
+  const mobileImages = [heroM1, heroM2, heroM3];
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const t = setInterval(() => {
-      setCurrentSlide((i) => (i + 1) % heroImages.length);
+      setCurrentSlide((i) => (i + 1) % desktopImages.length);
     }, 4000);
     return () => clearInterval(t);
   }, []);
 
   const nextSlide = () =>
-    setCurrentSlide((i) => (i + 1) % heroImages.length);
+    setCurrentSlide((i) => (i + 1) % desktopImages.length);
 
   const prevSlide = () =>
-    setCurrentSlide((i) => (i - 1 + heroImages.length) % heroImages.length);
+    setCurrentSlide((i) => (i - 1 + desktopImages.length) % desktopImages.length);
 
   /* ================= MODAL + FORM ================= */
   const [isOpen, setIsOpen] = useState(false);
@@ -655,17 +662,28 @@ export default function Hero() {
   }
 
   return (
-    <div className="relative h-[600px] flex flex-col">
-
+    <div className="relative flex flex-col h-[calc(100vh-110px)] md:h-[600px]">
       {/* ================= BACKGROUND SLIDER ================= */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
           className="flex h-full transition-transform duration-1000 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {heroImages.map((img, i) => (
-            <div key={i} className="w-full h-full flex-shrink-0">
+          {/* DESKTOP SLIDES */}
+          {desktopImages.map((img, i) => (
+            <div key={`d-${i}`} className="w-full h-full flex-shrink-0 hidden md:block">
               <img src={img} alt="" className="w-full h-full object-cover" />
+            </div>
+          ))}
+
+          {/* MOBILE SLIDES */}
+          {mobileImages.map((img, i) => (
+            <div key={`m-${i}`} className="w-full h-full flex-shrink-0 block md:hidden">
+              <img
+                src={img}
+                alt=""
+                className="w-full h-full object-cover object-center"
+              />
             </div>
           ))}
         </div>
@@ -688,42 +706,38 @@ export default function Hero() {
 
       {/* ================= HERO CONTENT ================= */}
       <section className="flex-1 flex items-center">
-        <div className="w-full max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8 items-center text-white">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-extrabold uppercase leading-tight">
-                Your Safety <br />
-                <span className="text-yellow-400">Our Responsibility</span>
-              </h1>
+        <div className="w-full max-w-6xl mx-auto px-4 text-white">
+          <h1 className="text-3xl md:text-5xl font-extrabold uppercase leading-tight">
+            Your Safety <br />
+            <span className="text-yellow-400">Our Responsibility</span>
+          </h1>
 
-              <p className="mt-6 max-w-xl text-gray-200">
-                Jaipur’s No.1 Security Services — trained, verified &
-                trusted guards available 24×7.
-              </p>
+          <p className="mt-4 md:mt-6 max-w-xl text-gray-200">
+            Jaipur’s No.1 Security Services — trained, verified & trusted guards
+            available 24×7.
+          </p>
 
-              <div className="mt-8 flex gap-3">
-                <a
-                  href="https://wa.me/918003001702"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md hover:bg-yellow-500 transition"
-                >
-                  Chat on WhatsApp
-                </a>
+          <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
+            <a
+              href="https://wa.me/918003001702"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md"
+            >
+              Chat on WhatsApp
+            </a>
 
-                <button
-                  onClick={openModal}
-                  className="px-6 py-3 border border-yellow-400 rounded-md hover:bg-yellow-500 hover:text-black transition"
-                >
-                  Inquiry Form
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={openModal}
+              className="px-6 py-3 border border-yellow-400 rounded-md"
+            >
+              Inquiry Form
+            </button>
           </div>
         </div>
       </section>
 
-      {/* ================= YELLOW LIVE TICKER (RIGHT ➜ LEFT) ================= */}
+      {/* ================= YELLOW TICKER ================= */}
       <LiveTicker />
 
       {/* ================= MODAL ================= */}
@@ -757,76 +771,31 @@ export default function Hero() {
 
 /* ================= LIVE TICKER ================= */
 function LiveTicker() {
-  const alerts = [
-    { text: "HIRING", color: "bg-red-600" },
-    { text: "NOTICE", color: "bg-blue-600" },
-    { text: "UPDATE", color: "bg-green-600" },
-    { text: "VIP", color: "bg-purple-600" },
-    { text: "SECURITY", color: "bg-black" },
-  ];
-
-  const [alertIndex, setAlertIndex] = useState(0);
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setAlertIndex((i) => (i + 1) % alerts.length);
-    }, 2500);
-    return () => clearInterval(t);
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      const now = new Date();
-      setTime(
-        now.toLocaleString("en-IN", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        })
-      );
-    }, 1000);
-    return () => clearInterval(t);
-  }, []);
-
-  const current = alerts[alertIndex];
-
   return (
-    <div className="relative bg-yellow-400 overflow-hidden py-2">
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-yellow-400 to-transparent z-10" />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-yellow-400 to-transparent z-10" />
-
-      <div
-        className="flex w-max"
-        style={{ animation: "slideRTL 45s linear infinite" }}
-      >
-        <TickerRow current={current} time={time} />
-        <TickerRow current={current} time={time} />
+    <div className="bg-yellow-400 py-2 overflow-hidden">
+      <div className="ticker-track flex w-max">
+        <div className="flex items-center">
+          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
+          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
+        </div>
+        <div className="flex items-center">
+          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
+          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
+        </div>
       </div>
 
       <style>{`
-        @keyframes slideRTL {
-          0%   { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
+        .ticker-track {
+          animation: ticker 25s linear infinite;
+        }
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
       `}</style>
     </div>
   );
 }
 
-function TickerRow({ current, time }) {
-  return (
-    <div className="flex items-center">
-      <span className={`mx-4 px-3 py-1 text-xs font-extrabold uppercase text-white rounded-full ${current.color}`}>
-        {current.text}
-      </span>
-      <p className="mx-6 whitespace-nowrap font-semibold">🕒 {time}</p>
-      <p className="mx-6 whitespace-nowrap font-bold">WE ARE HIRING SECURITY GUARDS</p>
-      <p className="mx-6 whitespace-nowrap font-bold">📞 CONTACT: +91-8003001702</p>
-      <p className="mx-6 whitespace-nowrap font-bold">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
-    </div>
-  );
-}
