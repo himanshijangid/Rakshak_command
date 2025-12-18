@@ -565,20 +565,21 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
-/* ===== DESKTOP IMAGES ===== */
+/* ===== DESKTOP HERO IMAGES ===== */
 import hero1 from "../assets/hero-1.jpg";
 import hero2 from "../assets/hero-1.jpg";
 import hero3 from "../assets/hero-1.jpg";
 
-/* ===== MOBILE IMAGES ===== */
+/* ===== MOBILE HERO IMAGES ===== */
 import heroM1 from "../assets/hero-mob-1.jpg";
 import heroM2 from "../assets/hero-mob-1.jpg";
 import heroM3 from "../assets/hero-mob-1.jpg";
 
 export default function Hero() {
-  /* ================= SLIDER ================= */
+  /* ================= HERO SLIDER ================= */
   const desktopImages = [hero1, hero2, hero3];
   const mobileImages = [heroM1, heroM2, heroM3];
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -594,10 +595,10 @@ export default function Hero() {
   const prevSlide = () =>
     setCurrentSlide((i) => (i - 1 + desktopImages.length) % desktopImages.length);
 
-  /* ================= MODAL + EMAILJS ================= */
+  /* ================= MODAL + FORM ================= */
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -608,8 +609,8 @@ export default function Hero() {
   });
 
   function openModal() {
-    setIsOpen(true);
     setStatus("");
+    setIsOpen(true);
     document.body.style.overflow = "hidden";
   }
 
@@ -619,14 +620,16 @@ export default function Hero() {
   }
 
   function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setStatus("");
 
     if (!form.name || !form.phone || !form.email || !form.service) {
-      setStatus("❌ Please fill all required fields");
+      setStatus("Please fill all required fields.");
       return;
     }
 
@@ -651,7 +654,7 @@ export default function Hero() {
       setTimeout(() => {
         setLoading(false);
         closeModal();
-      }, 1200);
+      }, 1000);
     } catch {
       setLoading(false);
       setStatus("❌ Something went wrong");
@@ -668,16 +671,17 @@ export default function Hero() {
         >
           {/* DESKTOP SLIDES */}
           {desktopImages.map((img, i) => (
-            <div key={`d-${i}`} className="hidden md:block w-full h-full flex-shrink-0">
-              <img src={img} className="w-full h-full object-cover" />
+            <div key={`d-${i}`} className="w-full h-full flex-shrink-0 hidden md:block">
+              <img src={img} alt="" className="w-full h-full object-cover" />
             </div>
           ))}
 
           {/* MOBILE SLIDES */}
           {mobileImages.map((img, i) => (
-            <div key={`m-${i}`} className="block md:hidden w-full h-full flex-shrink-0">
+            <div key={`m-${i}`} className="w-full h-full flex-shrink-0 block md:hidden">
               <img
                 src={img}
+                alt=""
                 className="w-full h-full object-cover object-center"
               />
             </div>
@@ -686,16 +690,15 @@ export default function Hero() {
 
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
 
-        {/* arrows (desktop only) */}
         <button
           onClick={prevSlide}
-          className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
         >
           ❮
         </button>
         <button
           onClick={nextSlide}
-          className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
         >
           ❯
         </button>
@@ -703,42 +706,40 @@ export default function Hero() {
 
       {/* ================= HERO CONTENT ================= */}
       <section className="flex-1 flex items-center">
-        <div className="w-full max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-2">
-            <div className="text-white">
-              <h1 className="text-3xl md:text-5xl font-extrabold uppercase leading-tight">
-                Your Safety <br />
-                <span className="text-yellow-400">Our Responsibility</span>
-              </h1>
+        <div className="w-full max-w-6xl mx-auto px-4 text-white">
+          <h1 className="text-3xl md:text-5xl font-extrabold uppercase leading-tight">
+            Your Safety <br />
+            <span className="text-yellow-400">Our Responsibility</span>
+          </h1>
 
-              <p className="mt-4 md:mt-6 max-w-xl text-gray-200">
-                Jaipur’s No.1 Security Services — trained, verified & trusted
-                guards available 24×7.
-              </p>
+          <p className="mt-4 md:mt-6 max-w-xl text-gray-200">
+            Jaipur’s No.1 Security Services — trained, verified & trusted guards
+            available 24×7.
+          </p>
 
-              <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
-                <a
-                  href="https://wa.me/918003001702"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md"
-                >
-                  Chat on WhatsApp
-                </a>
+          <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
+            <a
+              href="https://wa.me/918003001702"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md"
+            >
+              Chat on WhatsApp
+            </a>
 
-                <button
-                  onClick={openModal}
-                  className="px-6 py-3 border border-yellow-400 rounded-md hover:bg-yellow-400 hover:text-black"
-                >
-                  Inquiry Form
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={openModal}
+              className="px-6 py-3 border border-yellow-400 rounded-md cursor-pointer transition hover:bg-yellow-400 hover:text-black font-semibold"
+
+            >
+              
+              Inquiry Form
+            </button>
           </div>
         </div>
       </section>
 
-      {/* ================= TICKER ================= */}
+      {/* ================= YELLOW TICKER ================= */}
       <LiveTicker />
 
       {/* ================= MODAL ================= */}
@@ -770,44 +771,27 @@ export default function Hero() {
   );
 }
 
-/* ================= TICKER ================= */
+/* ================= LIVE TICKER ================= */
 function LiveTicker() {
-  const [time, setTime] = useState("");
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setTime(
-        new Date().toLocaleString("en-IN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        })
-      );
-    }, 1000);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <div
-      className="bg-yellow-400 py-2 overflow-hidden cursor-pointer"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onTouchStart={() => setPaused(true)}
-      onTouchEnd={() => setPaused(false)}
-    >
-      <div
-        className="flex w-max"
-        style={{
-          animation: paused ? "none" : "ticker 30s linear infinite",
-        }}
-      >
-        <TickerRow time={time} />
-        <TickerRow time={time} />
+    <div className="bg-yellow-400 py-2 overflow-hidden">
+      <div className="ticker-track flex w-max">
+        <div className="flex items-center">
+          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
+          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
+        </div>
+        <div className="flex items-center">
+          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
+          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
+        </div>
       </div>
 
       <style>{`
+        .ticker-track {
+          animation: ticker 25s linear infinite;
+        }
         @keyframes ticker {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
@@ -817,29 +801,3 @@ function LiveTicker() {
   );
 }
 
-function TickerRow({ time }) {
-  return (
-    <div className="flex items-center">
-      <span className="urgent-glow mx-4 px-3 py-1 text-xs font-extrabold text-white rounded-full bg-red-600">
-        URGENT HIRING
-      </span>
-      <p className="mx-6 font-bold whitespace-nowrap">🕒 {time}</p>
-      <p className="mx-6 font-bold whitespace-nowrap">
-        WE ARE HIRING SECURITY GUARDS
-      </p>
-      <p className="mx-6 font-bold whitespace-nowrap">
-        📞 CONTACT: +91-8003001702
-      </p>
-
-      <style>{`
-        .urgent-glow {
-          animation: pulse 1.5s infinite;
-          box-shadow: 0 0 10px rgba(220,38,38,.9);
-        }
-        @keyframes pulse {
-          50% { transform: scale(1.08); }
-        }
-      `}</style>
-    </div>
-  );
-}
