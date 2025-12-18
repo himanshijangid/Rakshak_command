@@ -565,18 +565,17 @@
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
-/* ===== DESKTOP HERO IMAGES ===== */
+/* ===== DESKTOP IMAGES ===== */
 import hero1 from "../assets/hero-1.jpg";
 import hero2 from "../assets/hero-1.jpg";
 import hero3 from "../assets/hero-1.jpg";
 
-/* ===== MOBILE HERO IMAGES ===== */
+/* ===== MOBILE IMAGES ===== */
 import heroM1 from "../assets/hero-mob-1.jpg";
 import heroM2 from "../assets/hero-mob-1.jpg";
 import heroM3 from "../assets/hero-mob-1.jpg";
 
 export default function Hero() {
-  /* ================= HERO SLIDER ================= */
   const desktopImages = [hero1, hero2, hero3];
   const mobileImages = [heroM1, heroM2, heroM3];
 
@@ -595,95 +594,25 @@ export default function Hero() {
   const prevSlide = () =>
     setCurrentSlide((i) => (i - 1 + desktopImages.length) % desktopImages.length);
 
-  /* ================= MODAL + FORM ================= */
-  const [isOpen, setIsOpen] = useState(false);
-  const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    service: "",
-    user_message: "",
-  });
-
-  function openModal() {
-    setStatus("");
-    setIsOpen(true);
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-    document.body.style.overflow = "";
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setStatus("");
-
-    if (!form.name || !form.phone || !form.email || !form.service) {
-      setStatus("Please fill all required fields.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_INQUIRY_FORM,
-        form,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-
-      setStatus("✅ Inquiry sent successfully");
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        service: "",
-        user_message: "",
-      });
-
-      setTimeout(() => {
-        setLoading(false);
-        closeModal();
-      }, 1000);
-    } catch {
-      setLoading(false);
-      setStatus("❌ Something went wrong");
-    }
-  }
-
   return (
     <div className="relative flex flex-col h-[calc(100vh-110px)] md:h-[600px]">
-      {/* ================= BACKGROUND SLIDER ================= */}
+      {/* ================= SLIDER ================= */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
           className="flex h-full transition-transform duration-1000 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {/* DESKTOP SLIDES */}
+          {/* DESKTOP */}
           {desktopImages.map((img, i) => (
-            <div key={`d-${i}`} className="w-full h-full flex-shrink-0 hidden md:block">
-              <img src={img} alt="" className="w-full h-full object-cover" />
+            <div key={`d-${i}`} className="hidden md:block w-full h-full flex-shrink-0">
+              <img src={img} className="w-full h-full object-cover" />
             </div>
           ))}
 
-          {/* MOBILE SLIDES */}
+          {/* MOBILE */}
           {mobileImages.map((img, i) => (
-            <div key={`m-${i}`} className="w-full h-full flex-shrink-0 block md:hidden">
-              <img
-                src={img}
-                alt=""
-                className="w-full h-full object-cover object-center"
-              />
+            <div key={`m-${i}`} className="block md:hidden w-full h-full flex-shrink-0">
+              <img src={img} className="w-full h-full object-cover object-center" />
             </div>
           ))}
         </div>
@@ -692,110 +621,145 @@ export default function Hero() {
 
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
         >
           ❮
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full"
         >
           ❯
         </button>
       </div>
 
-      {/* ================= HERO CONTENT ================= */}
+      {/* ================= CONTENT ================= */}
       <section className="flex-1 flex items-center">
-        <div className="w-full max-w-6xl mx-auto px-4 text-white">
-          <h1 className="text-3xl md:text-5xl font-extrabold uppercase leading-tight">
+        <div className="max-w-6xl mx-auto px-4 text-white">
+          <h1 className="text-3xl md:text-5xl font-extrabold uppercase">
             Your Safety <br />
             <span className="text-yellow-400">Our Responsibility</span>
           </h1>
 
-          <p className="mt-4 md:mt-6 max-w-xl text-gray-200">
+          <p className="mt-4 max-w-xl text-gray-200">
             Jaipur’s No.1 Security Services — trained, verified & trusted guards
             available 24×7.
           </p>
 
-          <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
+          <div className="mt-6 flex gap-3 flex-wrap">
             <a
               href="https://wa.me/918003001702"
               target="_blank"
-              rel="noopener noreferrer"
               className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md"
             >
               Chat on WhatsApp
             </a>
 
-            <button
-              onClick={openModal}
-              className="px-6 py-3 border border-yellow-400 rounded-md"
-            >
+            <button className="px-6 py-3 border border-yellow-400 rounded-md">
               Inquiry Form
             </button>
           </div>
         </div>
       </section>
 
-      {/* ================= YELLOW TICKER ================= */}
+      {/* ================= TICKER ================= */}
       <LiveTicker />
-
-      {/* ================= MODAL ================= */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div onClick={closeModal} className="absolute inset-0 bg-black/60" />
-          <div className="bg-white p-6 rounded-md z-10 w-full max-w-md">
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <input name="name" onChange={handleChange} placeholder="Name" className="w-full border p-2" />
-              <input name="phone" onChange={handleChange} placeholder="Phone" className="w-full border p-2" />
-              <input name="email" onChange={handleChange} placeholder="Email" className="w-full border p-2" />
-              <select name="service" onChange={handleChange} className="w-full border p-2">
-                <option value="">Select Service</option>
-                <option>Residential</option>
-                <option>Commercial</option>
-                <option>Event</option>
-                <option>VIP</option>
-              </select>
-              <textarea name="user_message" onChange={handleChange} className="w-full border p-2" />
-              <button className="w-full bg-yellow-400 py-2 font-semibold">
-                {loading ? "Sending..." : "Submit"}
-              </button>
-              {status && <p className="text-center">{status}</p>}
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
 /* ================= LIVE TICKER ================= */
 function LiveTicker() {
+  const alerts = [
+    { text: "URGENT HIRING", color: "bg-red-600" },
+    { text: "NOTICE", color: "bg-blue-600" },
+    { text: "UPDATE", color: "bg-green-600" },
+    { text: "SECURITY", color: "bg-black" },
+  ];
+
+  const [alertIndex, setAlertIndex] = useState(0);
+  const [time, setTime] = useState("");
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setAlertIndex((i) => (i + 1) % alerts.length);
+    }, 2500);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      const now = new Date();
+      setTime(
+        now.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        })
+      );
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const current = alerts[alertIndex];
+
   return (
-    <div className="bg-yellow-400 py-2 overflow-hidden">
-      <div className="ticker-track flex w-max">
-        <div className="flex items-center">
-          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
-          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
-          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
-        </div>
-        <div className="flex items-center">
-          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
-          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
-          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
-        </div>
+    <div
+      className="relative bg-yellow-400 overflow-hidden py-2 cursor-pointer select-none"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
+    >
+      <div
+        className="ticker-track flex w-max"
+        style={{ animationPlayState: paused ? "paused" : "running" }}
+      >
+        <TickerRow current={current} time={time} />
+        <TickerRow current={current} time={time} />
       </div>
 
       <style>{`
         .ticker-track {
-          animation: ticker 25s linear infinite;
+          animation: tickerMove 30s linear infinite;
         }
-        @keyframes ticker {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+        @keyframes tickerMove {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
       `}</style>
     </div>
   );
 }
 
+function TickerRow({ current, time }) {
+  return (
+    <div className="flex items-center">
+      <span className={`urgent-glow mx-4 px-3 py-1 text-xs font-extrabold text-white rounded-full ${current.color}`}>
+        {current.text}
+      </span>
+
+      <p className="mx-6 font-semibold whitespace-nowrap">🕒 {time}</p>
+      <p className="mx-6 font-bold whitespace-nowrap">🚨 URGENT REQUIREMENT: SECURITY GUARDS</p>
+      <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
+      <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+
+      <style>{`
+        .urgent-glow {
+          animation: urgentPulse 1.5s infinite;
+          box-shadow: 0 0 8px rgba(220,38,38,.8), 0 0 16px rgba(220,38,38,.6);
+        }
+        @keyframes urgentPulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.08); }
+          100% { transform: scale(1); }
+        }
+      `}</style>
+    </div>
+  );
+}
