@@ -561,7 +561,6 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
@@ -579,23 +578,17 @@ export default function Hero() {
   /* ================= HERO SLIDER ================= */
   const desktopImages = [hero1, hero2, hero3];
   const mobileImages = [heroM1, heroM2, heroM3];
-
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setCurrentSlide((i) => (i + 1) % desktopImages.length);
-    }, 4000);
+    const t = setInterval(
+      () => setCurrentSlide((i) => (i + 1) % desktopImages.length),
+      4000
+    );
     return () => clearInterval(t);
   }, []);
 
-  const nextSlide = () =>
-    setCurrentSlide((i) => (i + 1) % desktopImages.length);
-
-  const prevSlide = () =>
-    setCurrentSlide((i) => (i - 1 + desktopImages.length) % desktopImages.length);
-
-  /* ================= MODAL + FORM ================= */
+  /* ================= MODAL ================= */
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -626,8 +619,6 @@ export default function Hero() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setStatus("");
-
     if (!form.name || !form.phone || !form.email || !form.service) {
       setStatus("Please fill all required fields.");
       return;
@@ -641,16 +632,7 @@ export default function Hero() {
         form,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
-
       setStatus("✅ Inquiry sent successfully");
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        service: "",
-        user_message: "",
-      });
-
       setTimeout(() => {
         setLoading(false);
         closeModal();
@@ -663,65 +645,42 @@ export default function Hero() {
 
   return (
     <div className="relative flex flex-col h-[calc(100vh-110px)] md:h-[600px]">
-      {/* ================= BACKGROUND SLIDER ================= */}
+      {/* ===== BACKGROUND SLIDER ===== */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div
-          className="flex h-full transition-transform duration-1000 ease-in-out"
+          className="flex h-full transition-transform duration-1000"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {/* DESKTOP SLIDES */}
           {desktopImages.map((img, i) => (
-            <div key={`d-${i}`} className="w-full h-full flex-shrink-0 hidden md:block">
-              <img src={img} alt="" className="w-full h-full object-cover" />
+            <div key={i} className="hidden md:block w-full h-full flex-shrink-0">
+              <img src={img} className="w-full h-full object-cover" />
             </div>
           ))}
-
-          {/* MOBILE SLIDES */}
           {mobileImages.map((img, i) => (
-            <div key={`m-${i}`} className="w-full h-full flex-shrink-0 block md:hidden">
-              <img
-                src={img}
-                alt=""
-                className="w-full h-full object-cover object-center"
-              />
+            <div key={i} className="block md:hidden w-full h-full flex-shrink-0">
+              <img src={img} className="w-full h-full object-cover" />
             </div>
           ))}
         </div>
-
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
-
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
-        >
-          ❮
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full z-10"
-        >
-          ❯
-        </button>
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* ================= HERO CONTENT ================= */}
+      {/* ===== HERO CONTENT ===== */}
       <section className="flex-1 flex items-center">
-        <div className="w-full max-w-6xl mx-auto px-4 text-white">
-          <h1 className="text-3xl md:text-5xl font-extrabold uppercase leading-tight">
+        <div className="w-full max-w-6xl mx-auto px-4 pt-8 pb-12 md:pt-20 md:pb-20 text-white">
+          <h1 className="text-3xl md:text-5xl font-extrabold uppercase">
             Your Safety <br />
             <span className="text-yellow-400">Our Responsibility</span>
           </h1>
 
-          <p className="mt-4 md:mt-6 max-w-xl text-gray-200">
-            Jaipur’s No.1 Security Services — trained, verified & trusted guards
-            available 24×7.
+          <p className="mt-5 max-w-xl text-gray-200">
+            Jaipur’s No.1 Security Services — Trusted & Verified Guards 24×7
           </p>
 
-          <div className="mt-6 md:mt-8 flex gap-3 flex-wrap">
+          <div className="mt-7 flex gap-3 flex-wrap">
             <a
               href="https://wa.me/918003001702"
               target="_blank"
-              rel="noopener noreferrer"
               className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md"
             >
               Chat on WhatsApp
@@ -729,28 +688,26 @@ export default function Hero() {
 
             <button
               onClick={openModal}
-              className="px-6 py-3 border border-yellow-400 rounded-md cursor-pointer transition hover:bg-yellow-400 hover:text-black font-semibold"
-
+              className="px-6 py-3 border border-yellow-400 rounded-md hover:bg-yellow-400 hover:text-black font-semibold cursor-pointer"
             >
-              
               Inquiry Form
             </button>
           </div>
         </div>
       </section>
 
-      {/* ================= YELLOW TICKER ================= */}
+      {/* ===== LIVE TICKER ===== */}
       <LiveTicker />
 
-      {/* ================= MODAL ================= */}
+      {/* ===== MODAL ===== */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div onClick={closeModal} className="absolute inset-0 bg-black/60" />
           <div className="bg-white p-6 rounded-md z-10 w-full max-w-md">
             <form onSubmit={handleSubmit} className="space-y-3">
-              <input name="name" onChange={handleChange} placeholder="Name" className="w-full border p-2" />
-              <input name="phone" onChange={handleChange} placeholder="Phone" className="w-full border p-2" />
-              <input name="email" onChange={handleChange} placeholder="Email" className="w-full border p-2" />
+              <input name="name" onChange={handleChange} className="w-full border p-2" placeholder="Name" />
+              <input name="phone" onChange={handleChange} className="w-full border p-2" placeholder="Phone" />
+              <input name="email" onChange={handleChange} className="w-full border p-2" placeholder="Email" />
               <select name="service" onChange={handleChange} className="w-full border p-2">
                 <option value="">Select Service</option>
                 <option>Residential</option>
@@ -758,7 +715,7 @@ export default function Hero() {
                 <option>Event</option>
                 <option>VIP</option>
               </select>
-              <textarea name="user_message" onChange={handleChange} className="w-full border p-2" />
+              <textarea name="user_message" className="w-full border p-2" placeholder="Message" />
               <button className="w-full bg-yellow-400 py-2 font-semibold">
                 {loading ? "Sending..." : "Submit"}
               </button>
@@ -774,54 +731,115 @@ export default function Hero() {
 /* ================= LIVE TICKER ================= */
 function LiveTicker() {
   return (
-    <div className="bg-yellow-400 py-2 overflow-hidden">
-      <div className="ticker-track flex w-max">
-        <div className="flex items-center">
-          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
-          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
-          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
-        </div>
-        <div className="flex items-center">
-          <p className="mx-6 font-bold whitespace-nowrap">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
-          <p className="mx-6 font-bold whitespace-nowrap">📞 CONTACT: +91-8003001702</p>
-          <p className="mx-6 font-bold whitespace-nowrap">WE ARE HIRING SECURITY GUARDS</p>
-        </div>
+    <div className="relative bg-yellow-400 overflow-hidden py-2">
+      <div
+        className="ticker-track flex w-max cursor-pointer"
+        style={{ animation: "slideRTL 25s linear infinite" }}
+        onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = "paused")}
+        onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = "running")}
+        onTouchStart={(e) => (e.currentTarget.style.animationPlayState = "paused")}
+        onTouchEnd={(e) => (e.currentTarget.style.animationPlayState = "running")}
+      >
+        <TickerRow />
+        <TickerRow />
       </div>
 
       <style>{`
-        .ticker-track {
-          animation: ticker 25s linear infinite;
+        @keyframes slideRTL {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
-        @keyframes ticker {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-          .alert {
-          padding: 5px 12px;
-          margin: 0 6px;
-          color: #fff;
-          border-radius: 4px;
-          animation: pop 0.5s ease;
-        }
-        .hiring { background: #16a34a; }
-        .vip { background: linear-gradient(135deg, #facc15, #a16207); color: #000; }
-        .update { background: #2563eb; }
-        .urgent { background: #dc2626; animation: blink 1s infinite, pop 0.5s ease; }
-
-        @keyframes pop {
-          from { transform: scale(0.7); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes blink {
-          0%,100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
-        @media (max-width: 640px) {
-          .max-w-7xl { flex-direction: column; gap: 4px; }
-        }
-      `}
-      `</style>
+      `}</style>
     </div>
   );
 }
 
+/* ================= TICKER ROW ================= */
+function TickerRow() {
+  const badges = [
+    { text: "HIRING", cls: "hiring" },
+    { text: "VIP SECURITY", cls: "vip" },
+    { text: "UPDATE", cls: "update" },
+    { text: "URGENT", cls: "urgent" },
+  ];
+
+  const [index, setIndex] = useState(0);
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const b = setInterval(
+      () => setIndex((i) => (i + 1) % badges.length),
+      2500
+    );
+    return () => clearInterval(b);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      const now = new Date();
+      setTime(
+        now.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })
+      );
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div className="flex items-center">
+      <span className={`mx-3 px-4 py-1 text-xs font-extrabold rounded-full text-white badge ${badges[index].cls}`}>
+        {badges[index].text}
+      </span>
+
+      <p className="mx-6 whitespace-nowrap text-black font-semibold">
+        🕒 {time}
+      </p>
+
+      <p className="mx-6 whitespace-nowrap text-black font-bold">
+        WE ARE HIRING SECURITY GUARDS – JAIPUR
+      </p>
+      <p className="mx-6 whitespace-nowrap text-black font-bold">
+        📞 CONTACT: +91-8003001702
+      </p>
+      <p className="mx-6 whitespace-nowrap text-black font-bold">
+        🛡️ PROFESSIONAL SECURITY SERVICES 24×7
+      </p>
+
+      <style>{`
+        .badge {
+          min-width: 120px;
+          text-align: center;
+          box-shadow: 0 0 14px rgba(0,0,0,0.4);
+          animation: blink 1.2s infinite;
+        }
+        .hiring {
+          background: #16a34a;
+          box-shadow: 0 0 16px #16a34a;
+        }
+        .vip {
+          background: linear-gradient(135deg,#facc15,#a16207);
+          color: #000;
+          box-shadow: 0 0 16px #0000;
+        }
+        .update {
+          background: #2563eb;
+          box-shadow: 0 0 16px #2563eb;
+        }
+        .urgent {
+          background: #dc2626;
+          box-shadow: 0 0 18px #dc2626;
+        }
+        @keyframes blink {
+          0%,100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
+    </div>
+  );
+}

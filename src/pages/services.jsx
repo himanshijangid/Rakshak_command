@@ -46,7 +46,7 @@ const Services = () => {
               <div className=" mb-6 ">{service.icon}</div>
               <>
                 <h6 className="text-xl font-semibold mb-3">{service.title}</h6>
-                <p className="text-gray-700 mb-4">{service.description}</p>
+                <p className="text-gray-700 mb-4 text-justify">{service.description}</p>
               </>
             </div>
           ))}
