@@ -27,33 +27,46 @@
 // }
 
 // export default App;
-import React from "react";
+
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+import Home from "./pages/Home";
 import About from "./pages/about";
-import Contact from "./pages/contact";
-import MainLayout from "./layout/mainLayout";
 import Services from "./pages/services";
-import Guards from "./pages/guards";
-import GalleryPage from "./pages/galleryPage";
+import Contact from "./pages/contact";
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: "ease-in-out",
+    });
+  }, []);
+
   return (
     <Router>
+      <Header />   {/* ✅ HAR PAGE PE */}
+      
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/guards" element={<Guards />} />
-          {/* 👇 Separate Page */}
-          <Route path="/gallery" element={<GalleryPage />} />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
+
+      <Footer />   {/* ✅ HAR PAGE PE */}
     </Router>
   );
 }
 
 export default App;
+
+
 

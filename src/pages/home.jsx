@@ -1,20 +1,23 @@
 import React from "react";
-import ClientSection from "./clientSection";
-import ContactSection from "./contact";
-import Guards from "./guards";
-import Services from "./services";
-import About from "./about";
 import Hero from "./hero";
+import About from "./about";
+import Services from "./services";
+import Guards from "./guards";
+import Contact from "./contact";
+import ClientSection from "./clientSection";
+
 const Home = () => {
   return (
     <>
-      <Hero/>
-      <About/>
+      <Hero />
+      <About />
       <Services />
       <Guards />
-      <ContactSection />
+      <Contact />
       <ClientSection />
     </>
   );
 };
+
 export default Home;
+

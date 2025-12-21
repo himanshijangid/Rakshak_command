@@ -560,24 +560,22 @@
 // }
 
 
-
 import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
-/* ===== DESKTOP HERO IMAGES ===== */
-import hero1 from "../assets/hero-1.jpg";
-import hero2 from "../assets/hero-2.jpg";
-import hero3 from "../assets/hero-3.jpg";
-
-/* ===== MOBILE HERO IMAGES ===== */
-import heroM1 from "../assets/hero-mob-1.jpg";
-import heroM2 from "../assets/hero-mob-2.jpg";
-import heroM3 from "../assets/hero-mob-3.jpg";
-
 export default function Hero() {
-  /* ================= HERO SLIDER ================= */
-  const desktopImages = [hero1, hero2, hero3];
-  const mobileImages = [heroM1, heroM2, heroM3];
+  const desktopImages = [
+    "/assets/hero-1.jpg",
+    "/assets/hero-2.jpg",
+    "/assets/hero-3.jpg",
+  ];
+
+  const mobileImages = [
+    "/assets/hero-mob-1.jpg",
+    "/assets/hero-mob-2.jpg",
+    "/assets/hero-mob-3.jpg",
+  ];
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -636,7 +634,7 @@ export default function Hero() {
       setTimeout(() => {
         setLoading(false);
         closeModal();
-      }, 1000);
+      }, 1200);
     } catch {
       setLoading(false);
       setStatus("❌ Something went wrong");
@@ -668,27 +666,39 @@ export default function Hero() {
       {/* ===== HERO CONTENT ===== */}
       <section className="flex-1 flex items-center">
         <div className="w-full max-w-6xl mx-auto px-4 pt-8 pb-12 md:pt-20 md:pb-20 text-white">
-          <h1 className="text-3xl md:text-5xl font-extrabold uppercase">
+          <h1
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="text-3xl md:text-5xl font-extrabold uppercase"
+          >
             Your Safety <br />
             <span className="text-yellow-400">Our Responsibility</span>
           </h1>
 
-          <p className="mt-5 max-w-xl text-gray-200">
+          <p
+            data-aos="fade-up"
+            data-aos-delay="300"
+            className="mt-5 max-w-xl text-gray-200"
+          >
             Jaipur’s No.1 Security Services — Trusted & Verified Guards 24×7
           </p>
 
-          <div className="mt-7 flex gap-3 flex-wrap">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="500"
+            className="mt-7 flex gap-3 flex-wrap"
+          >
             <a
               href="https://wa.me/918003001702"
               target="_blank"
-              className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md"
+              className="px-6 py-3 bg-yellow-400 text-black font-semibold rounded-md hover:scale-105 transition"
             >
               Chat on WhatsApp
             </a>
 
             <button
               onClick={openModal}
-              className="px-6 py-3 border border-yellow-400 rounded-md hover:bg-yellow-400 hover:text-black font-semibold cursor-pointer"
+              className="px-6 py-3 border border-yellow-400 rounded-md hover:bg-yellow-400 hover:text-black font-semibold transition"
             >
               Inquiry Form
             </button>
@@ -730,32 +740,6 @@ export default function Hero() {
 
 /* ================= LIVE TICKER ================= */
 function LiveTicker() {
-  return (
-    <div className="relative bg-yellow-400 overflow-hidden py-2">
-      <div
-        className="ticker-track flex w-max cursor-pointer"
-        style={{ animation: "slideRTL 25s linear infinite" }}
-        onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = "paused")}
-        onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = "running")}
-        onTouchStart={(e) => (e.currentTarget.style.animationPlayState = "paused")}
-        onTouchEnd={(e) => (e.currentTarget.style.animationPlayState = "running")}
-      >
-        <TickerRow />
-        <TickerRow />
-      </div>
-
-      <style>{`
-        @keyframes slideRTL {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-    </div>
-  );
-}
-
-/* ================= TICKER ROW ================= */
-function TickerRow() {
   const badges = [
     { text: "HIRING", cls: "hiring" },
     { text: "VIP SECURITY", cls: "vip" },
@@ -767,10 +751,7 @@ function TickerRow() {
   const [time, setTime] = useState("");
 
   useEffect(() => {
-    const b = setInterval(
-      () => setIndex((i) => (i + 1) % badges.length),
-      2500
-    );
+    const b = setInterval(() => setIndex((i) => (i + 1) % badges.length), 2500);
     return () => clearInterval(b);
   }, []);
 
@@ -792,54 +773,44 @@ function TickerRow() {
   }, []);
 
   return (
-    <div className="flex items-center">
-      <span className={`mx-3 px-4 py-1 text-xs font-extrabold rounded-full text-white badge ${badges[index].cls}`}>
-        {badges[index].text}
-      </span>
-
-      <p className="mx-6 whitespace-nowrap text-black font-semibold">
-        🕒 {time}
-      </p>
-
-      <p className="mx-6 whitespace-nowrap text-black font-bold">
-        WE ARE HIRING SECURITY GUARDS – JAIPUR
-      </p>
-      <p className="mx-6 whitespace-nowrap text-black font-bold">
-        📞 CONTACT: +91-8003001702
-      </p>
-      <p className="mx-6 whitespace-nowrap text-black font-bold">
-        🛡️ PROFESSIONAL SECURITY SERVICES 24×7
-      </p>
+    <div className="relative bg-yellow-400 overflow-hidden py-2">
+      <div className="ticker-track flex w-max" style={{ animation: "slideRTL 25s linear infinite" }}>
+        <TickerRow badges={badges} index={index} time={time} />
+        <TickerRow badges={badges} index={index} time={time} />
+      </div>
 
       <style>{`
+        @keyframes slideRTL {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
         .badge {
           min-width: 120px;
           text-align: center;
           box-shadow: 0 0 14px rgba(0,0,0,0.4);
           animation: blink 1.2s infinite;
         }
-        .hiring {
-          background: #16a34a;
-          box-shadow: 0 0 16px #16a34a;
-        }
-        .vip {
-          background: linear-gradient(135deg,#facc15,#a16207);
-          color: #000;
-          box-shadow: 0 0 16px #0000;
-        }
-        .update {
-          background: #2563eb;
-          box-shadow: 0 0 16px #2563eb;
-        }
-        .urgent {
-          background: #dc2626;
-          box-shadow: 0 0 18px #dc2626;
-        }
-        @keyframes blink {
-          0%,100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
+        .hiring { background:#16a34a; box-shadow:0 0 16px #16a34a; }
+        .vip { background:linear-gradient(135deg,#facc15,#a16207); color:#000; }
+        .update { background:#2563eb; box-shadow:0 0 16px #2563eb; }
+        .urgent { background:#dc2626; box-shadow:0 0 18px #dc2626; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.5} }
       `}</style>
     </div>
   );
 }
+
+function TickerRow({ badges, index, time }) {
+  return (
+    <div className="flex items-center">
+      <span className={`mx-3 px-4 py-1 text-xs font-extrabold rounded-full text-white badge ${badges[index].cls}`}>
+        {badges[index].text}
+      </span>
+      <p className="mx-6 font-semibold">🕒 {time}</p>
+      <p className="mx-6 font-bold">WE ARE HIRING SECURITY GUARDS – JAIPUR</p>
+      <p className="mx-6 font-bold">📞 CONTACT: +91-8003001702</p>
+      <p className="mx-6 font-bold">🛡️ PROFESSIONAL SECURITY SERVICES 24×7</p>
+    </div>
+  );
+}
+

@@ -1,47 +1,41 @@
-
 import React, { useState } from "react";
 
-// 🔹 Import images directly from assets folder
-import img01 from "../assets/gallery/img01.jpg";
-import img02 from "../assets/gallery/img02.jpg";
-import img03 from "../assets/gallery/img03.jpg";
-import img04 from "../assets/gallery/img04.jpg";
-import img05 from "../assets/gallery/img05.jpg";
-import img06 from "../assets/gallery/img06.jpg";
-import img07 from "../assets/gallery/img07.jpg";
-import img08 from "../assets/gallery/img08.jpg";
-import img09 from "../assets/gallery/img09.jpg";
-import img10 from "../assets/gallery/img10.jpg";
-import img11 from "../assets/gallery/img11.jpg";
+/* ===== GALLERY IMAGES (PUBLIC FOLDER) ===== */
+const galleryImages = [
+  "/assets/gallery/img01.jpg",
+  "/assets/gallery/img02.jpg",
+  "/assets/gallery/img03.jpg",
+  "/assets/gallery/img04.jpg",
+  "/assets/gallery/img05.jpg",
+  "/assets/gallery/img06.jpg",
+  "/assets/gallery/img07.jpg",
+  "/assets/gallery/img08.jpg",
+  "/assets/gallery/img09.jpg",
+  "/assets/gallery/img10.jpg",
+  "/assets/gallery/img11.jpg",
+];
 
-
-
-const GalleryPage = () => {
-  // 🔹 All gallery images in one array
-  const galleryImages = [img01,img02,img03,img04,img05,img06,img07,img08,img09,img10,img11,];
-
+export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 🔹 Open image in fullscreen
+  /* ===== OPEN IMAGE ===== */
   const openImage = (index) => {
     setSelectedImage(galleryImages[index]);
     setCurrentIndex(index);
   };
 
-  // 🔹 Close fullscreen view
-  const closeImage = () => {
-    setSelectedImage(null);
-  };
+  /* ===== CLOSE IMAGE ===== */
+  const closeImage = () => setSelectedImage(null);
 
-  // 🔹 Show next image
+  /* ===== NEXT IMAGE ===== */
   const showNext = () => {
     const nextIndex = (currentIndex + 1) % galleryImages.length;
     setSelectedImage(galleryImages[nextIndex]);
     setCurrentIndex(nextIndex);
   };
 
-  // 🔹 Show previous image
+  /* ===== PREV IMAGE ===== */
   const showPrev = () => {
     const prevIndex =
       (currentIndex - 1 + galleryImages.length) % galleryImages.length;
@@ -50,28 +44,40 @@ const GalleryPage = () => {
   };
 
   return (
-    <div className="bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
-      {/* 🖼️ Masonry-style responsive gallery */}
-     <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
+    <div className="bg-gray-100 py-14 px-4 sm:px-6 lg:px-8">
+      {/* Heading */}
+      <h2
+        className="text-3xl md:text-4xl font-bold text-center mb-12 uppercase tracking-wide"
+        data-aos="fade-down"
+      >
+        Our Gallery
+      </h2>
+
+      {/* 🖼️ Masonry Gallery */}
+      <div
+        className="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4 max-w-7xl mx-auto"
+        data-aos="fade-up"
+      >
         {galleryImages.map((image, index) => (
           <div
             key={index}
-            className="overflow-hidden rounded-lg shadow-md cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+            className="overflow-hidden rounded-lg shadow-md cursor-pointer bg-white"
             onClick={() => openImage(index)}
           >
             <img
               src={image}
               alt={`Gallery ${index + 1}`}
-              className="w-full h-auto mb-4 rounded-lg object-contain"
+              className="w-full h-auto rounded-lg object-cover transition-transform duration-300 hover:scale-105"
+              loading="lazy"
             />
           </div>
         ))}
       </div>
 
-      {/* 🔍 Fullscreen Image Modal */}
+      {/* 🔍 FULLSCREEN MODAL */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
-          {/* Close button */}
+          {/* Close */}
           <button
             className="absolute top-6 right-6 text-white text-3xl font-bold hover:text-yellow-400"
             onClick={closeImage}
@@ -79,7 +85,7 @@ const GalleryPage = () => {
             ✕
           </button>
 
-          {/* Previous button */}
+          {/* Prev */}
           <button
             className="absolute left-6 text-white text-4xl font-bold hover:text-yellow-400 select-none"
             onClick={showPrev}
@@ -87,14 +93,14 @@ const GalleryPage = () => {
             ‹
           </button>
 
-          {/* Selected Image */}
+          {/* Image */}
           <img
             src={selectedImage}
             alt="Selected"
             className="max-w-[90%] max-h-[85vh] rounded-lg shadow-lg object-contain"
           />
 
-          {/* Next button */}
+          {/* Next */}
           <button
             className="absolute right-6 text-white text-4xl font-bold hover:text-yellow-400 select-none"
             onClick={showNext}
@@ -105,6 +111,4 @@ const GalleryPage = () => {
       )}
     </div>
   );
-};
-
-export default GalleryPage;
+}

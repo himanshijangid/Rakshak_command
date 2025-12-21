@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
-import contactBg from "../assets/contact-bg.jpg";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,14 +19,14 @@ const Contact = () => {
     e.preventDefault();
     try {
       const result = await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID, // Service ID
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CONTACT_US, // Template ID (change here)
-        formData, // Form Data
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY // Public Key
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID_CONTACT_US,
+        formData,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
-      console.log(result.text);
+
       if (result.status === 200) {
-        setStatus("Message sent successfully!");
+        setStatus("✅ Message sent successfully!");
         setFormData({
           name: "",
           email: "",
@@ -37,7 +36,7 @@ const Contact = () => {
       }
     } catch (error) {
       console.error("EmailJS Error:", error);
-      setStatus("Failed to send message. Please try again.");
+      setStatus("❌ Failed to send message. Please try again.");
     }
 
     setTimeout(() => setStatus(""), 3000);
@@ -45,10 +44,10 @@ const Contact = () => {
 
   return (
     <section className="relative py-16 min-h-screen flex items-center justify-center">
-      {/* Background Image */}
+      {/* ===== BACKGROUND IMAGE ===== */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <img
-          src={contactBg}
+          src="/assets/contact-bg.jpg"
           alt="Contact Background"
           className="w-full h-full object-cover"
         />
@@ -57,14 +56,20 @@ const Contact = () => {
 
       <div className="w-full max-w-4xl mx-auto px-4">
         {/* Heading */}
-        <div className="text-center mb-10">
+        <div
+          className="text-center mb-10"
+          data-aos="fade-down"
+        >
           <h2 className="text-3xl md:text-4xl uppercase font-bold text-white drop-shadow">
             Get In Touch
           </h2>
         </div>
 
         {/* Contact Form */}
-        <div className="rounded-lg shadow-lg p-8 md:p-10 max-w-2xl mx-auto bg-white/80 backdrop-blur-sm">
+        <div
+          className="rounded-lg shadow-lg p-8 md:p-10 max-w-2xl mx-auto bg-white/80 backdrop-blur-sm"
+          data-aos="fade-up"
+        >
           <form onSubmit={handleSubmit}>
             <div className="space-y-5">
               <input
@@ -76,6 +81,7 @@ const Contact = () => {
                 required
                 className="w-full text-black bg-white px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
+
               <input
                 type="email"
                 name="email"
@@ -83,8 +89,9 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Email"
                 required
-                className="w-full px-4 py-2 text-black border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
+
               <input
                 type="text"
                 name="phone"
@@ -92,24 +99,25 @@ const Contact = () => {
                 onChange={handleChange}
                 placeholder="Phone Number"
                 required
-                className="w-full px-4 py-2 text-black border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                className="w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
               />
+
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Message"
-                required
                 rows="4"
-                className="w-full px-4 py-2 text-black border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              ></textarea>
+                required
+                className="w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
 
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 px-6 rounded-md transition-colors"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-8 rounded-md transition-colors"
                 >
-                  Send
+                  Send Message
                 </button>
               </div>
             </div>
