@@ -48,7 +48,9 @@ function App() {
       once: true,
       easing: "ease-in-out",
     });
-  }, []);
+        AOS.refresh(); // 🔥 MOST IMPORTANT FOR LIVE
+  }, [location.pathname]); // 🔥 route change pe refresh
+  ;
 
   return (
     <Router>
