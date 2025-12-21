@@ -29,7 +29,7 @@
 // export default App;
 
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -41,21 +41,24 @@ import About from "./pages/about";
 import Services from "./pages/services";
 import Contact from "./pages/contact";
 
-function App() {
+function AppContent() {
+  const location = useLocation(); // ✅ IMPORTANT
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
       easing: "ease-in-out",
+      offset: 120,
     });
-        AOS.refresh(); // 🔥 MOST IMPORTANT FOR LIVE
+
+    AOS.refresh(); // 🔥 LIVE FIX
   }, [location.pathname]); // 🔥 route change pe refresh
-  ;
 
   return (
-    <Router>
-      <Header />   {/* ✅ HAR PAGE PE */}
-      
+    <>
+      <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -63,12 +66,15 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
 
-      <Footer />   {/* ✅ HAR PAGE PE */}
-    </Router>
+      <Footer />
+    </>
   );
 }
 
-export default App;
-
-
-
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
