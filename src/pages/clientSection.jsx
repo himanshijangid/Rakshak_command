@@ -59,13 +59,11 @@ export default function ClientSection() {
   };
 
   return (
-    <section className="w-full min-h-[400px] flex flex-col items-center justify-center py-16 bg-white">
+    <section className="w-full min-h-[400px] py-16 bg-white">
       <div className="w-full max-w-5xl mx-auto px-4 text-center">
-        {/* Heading */}
-        <h2
-          className="text-3xl md:text-4xl font-bold text-gray-900 mb-10 tracking-tight uppercase"
-          data-aos="fade-down"
-        >
+
+        {/* HEADING (NO AOS HERE) */}
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10 tracking-tight uppercase">
           What Our Clients Say
         </h2>
 
@@ -118,6 +116,7 @@ export default function ClientSection() {
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
         </div>
+
       </div>
     </section>
   );

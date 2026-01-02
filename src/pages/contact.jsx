@@ -43,7 +43,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="relative py-16 min-h-screen flex items-center justify-center">
+    <section className="relative py-16">
       {/* ===== BACKGROUND IMAGE ===== */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <img
@@ -56,20 +56,14 @@ const Contact = () => {
 
       <div className="w-full max-w-4xl mx-auto px-4">
         {/* Heading */}
-        <div
-          className="text-center mb-10"
-          data-aos="fade-down"
-        >
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl uppercase font-bold text-white drop-shadow">
             Get In Touch
           </h2>
         </div>
 
         {/* Contact Form */}
-        <div
-          className="rounded-lg shadow-lg p-8 md:p-10 max-w-2xl mx-auto bg-white/80 backdrop-blur-sm"
-          data-aos="fade-up"
-        >
+        <div className="rounded-lg shadow-lg p-8 md:p-10 max-w-2xl mx-auto bg-white/80 backdrop-blur-sm">
           <form onSubmit={handleSubmit}>
             <div className="space-y-5">
               <input
