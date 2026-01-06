@@ -4,6 +4,13 @@ export default {
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+
+  // 🔥 IMPORTANT FOR AOS (GitHub Pages FIX)
+  safelist: [
+    "aos-init",
+    "aos-animate",
+  ],
+
   theme: {
     extend: {
       keyframes: {
@@ -13,9 +20,10 @@ export default {
         },
       },
       animation: {
-        slideRL: "slideRL 22s linear infinite", // medium speed
+        slideRL: "slideRL 22s linear infinite",
       },
     },
   },
+
   plugins: [],
-}
+};

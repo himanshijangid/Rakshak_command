@@ -1,60 +1,40 @@
-
-
 import React, { useEffect } from "react";
 import {
   HashRouter as Router,
   Routes,
   Route,
-  useLocation,
 } from "react-router-dom";
 
 import AOS from "aos";
-import "aos/dist/aos.css";
 
-/* ===== Components ===== */
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-/* ===== Pages ===== */
 import Home from "./pages/Home";
 import About from "./pages/about";
 import Services from "./pages/services";
 import Contact from "./pages/contact";
+import Guards from "./pages/guards";
+import GalleryPage from "./pages/galleryPage";
 
-/* ===== AOS CONTROLLER ===== */
-function AOSController() {
-  const location = useLocation();
-
-  // INIT AOS (ONLY ONCE)
+export default function App() {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      easing: "ease-in-out",
       once: true,
       offset: 120,
+      easing: "ease-in-out",
     });
 
-    // 🔥 VERY IMPORTANT FOR LIVE
-    window.AOS = AOS;
+    // 🔥 GitHub Pages fix
+    setTimeout(() => {
+      AOS.refreshHard();
+    }, 300);
   }, []);
 
-  // REFRESH AOS ON ROUTE CHANGE
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (window.AOS) {
-        window.AOS.refreshHard();
-      }
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
-
-  return null;
-}
-
-function AppLayout() {
   return (
-    <>
+    <Router>
       <Header />
 
       <Routes>
@@ -62,18 +42,11 @@ function AppLayout() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/guards" element={<Guards />} />
+        <Route path="/gallery" element={<GalleryPage />} />
       </Routes>
 
       <Footer />
-    </>
-  );
-}
-
-export default function App() {
-  return (
-    <Router>
-      <AOSController />
-      <AppLayout />
     </Router>
   );
 }
