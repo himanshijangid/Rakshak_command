@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+
 import Hero from "./hero";
 import About from "./about";
 import Services from "./services";
@@ -7,6 +9,12 @@ import Contact from "./contact";
 import ClientSection from "./clientSection";
 
 const Home = () => {
+
+  // 🔥 THIS IS THE FIX
+  useEffect(() => {
+    AOS.refreshHard();
+  }, []);
+
   return (
     <>
       {/* HERO */}
