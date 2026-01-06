@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import {
-  HashRouter as Router,
+  HashRouter,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
 
 import AOS from "aos";
+import "aos/dist/aos.css";
 
-
+/* ===== LAYOUT ===== */
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+/* ===== PAGES ===== */
 import Home from "./pages/Home";
 import About from "./pages/about";
 import Services from "./pages/services";
@@ -19,45 +21,48 @@ import Contact from "./pages/contact";
 import Guards from "./pages/guards";
 import GalleryPage from "./pages/galleryPage";
 
+/* ===== AOS INIT COMPONENT ===== */
 function AOSInitializer() {
   const location = useLocation();
 
   useEffect(() => {
-    // Initialize AOS only once on app start
     AOS.init({
       duration: 1000,
       offset: 120,
-      once: true,
       easing: "ease-in-out",
+      once: true,
     });
   }, []);
 
   useEffect(() => {
-    // After each page change, refresh AOS
+    // refresh animations on route change
     setTimeout(() => {
-      AOS.refreshHard(); 
+      AOS.refreshHard();
     }, 200);
   }, [location.pathname]);
 
   return null;
 }
 
+/* ===== APP ===== */
 export default function App() {
   return (
-    <Router>
+    <HashRouter>
       <AOSInitializer />
+
       <Header />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/guards" element={<Guards />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
 
       <Footer />
-    </Router>
+    </HashRouter>
   );
 }
+
