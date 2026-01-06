@@ -3,10 +3,11 @@ import {
   HashRouter as Router,
   Routes,
   Route,
+  useLocation,
 } from "react-router-dom";
 
 import AOS from "aos";
-
+import "aos/dist/aos.css";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -18,7 +19,9 @@ import Contact from "./pages/contact";
 import Guards from "./pages/guards";
 import GalleryPage from "./pages/galleryPage";
 
-export default function App() {
+function AOSWrapper() {
+  const location = useLocation();
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -26,15 +29,23 @@ export default function App() {
       offset: 120,
       easing: "ease-in-out",
     });
+  }, []);
 
-    // 🔥 GitHub Pages fix
+  useEffect(() => {
+    // 🔥 ROUTE + GITHUB PAGES FIX
     setTimeout(() => {
       AOS.refreshHard();
     }, 300);
-  }, []);
+  }, [location.pathname]);
 
+  return null;
+}
+
+export default function App() {
   return (
     <Router>
+      <AOSWrapper />
+
       <Header />
 
       <Routes>
@@ -50,3 +61,4 @@ export default function App() {
     </Router>
   );
 }
+
