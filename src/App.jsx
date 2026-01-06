@@ -19,23 +19,24 @@ import Contact from "./pages/contact";
 import Guards from "./pages/guards";
 import GalleryPage from "./pages/galleryPage";
 
-function AOSWrapper() {
+function AOSInitializer() {
   const location = useLocation();
 
   useEffect(() => {
+    // Initialize AOS only once on app start
     AOS.init({
       duration: 1000,
-      once: true,
       offset: 120,
+      once: true,
       easing: "ease-in-out",
     });
   }, []);
 
   useEffect(() => {
-    // 🔥 ROUTE + GITHUB PAGES FIX
+    // After each page change, refresh AOS
     setTimeout(() => {
-      AOS.refreshHard();
-    }, 300);
+      AOS.refreshHard(); 
+    }, 200);
   }, [location.pathname]);
 
   return null;
@@ -44,8 +45,7 @@ function AOSWrapper() {
 export default function App() {
   return (
     <Router>
-      <AOSWrapper />
-
+      <AOSInitializer />
       <Header />
 
       <Routes>
@@ -61,4 +61,3 @@ export default function App() {
     </Router>
   );
 }
-
